@@ -1,0 +1,22 @@
+---
+# tasks file for jupyterhub-apb
+#
+- name: copy files to /tmp
+  copy:
+    src: "{{ item }}"
+    dest: /tmp
+  with_items:
+    - "jupyterhub-templates.json"
+    - "notebook-images.json"
+    - "jupyter-images.json"
+
+
+- name: Create needed templates and buildconfigs
+  shell: oc create -f {{ item }} -n {{ namespace }}
+  with_items:
+    - "/tmp/jupyterhub-templates.json"
+    - "/tmp/notebook-images.json"
+    - "/tmp/jupyter-images.json"
+
+- name: Create jupyterhub deployment
+  shell: oc new-app --template jupyterhub-deployer -n {{ namespace }}
