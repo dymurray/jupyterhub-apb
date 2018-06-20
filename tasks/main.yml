@@ -10,13 +10,14 @@
     - "notebook-images.json"
     - "jupyter-images.json"
 
-
-- name: Create needed templates and buildconfigs
-  shell: oc create -f {{ item }} -n {{ namespace }}
-  with_items:
-    - "/tmp/jupyterhub-templates.json"
-    - "/tmp/notebook-images.json"
-    - "/tmp/jupyter-images.json"
+- name: create buildconfigs, templates, and imagestreams
+  openshift_raw:
+    state: "{{ state }}"
+    definition: "{{ lookup('file', item.name) | from_json }}"
+  loop:
+    - name: /tmp/jupyterhub-templates.json
+    - name: /tmp/notebook-images.json
+    - name: /tmp/jupyter-images.json
 
 - name: Create jupyterhub deployment
   shell: oc new-app --template jupyterhub-deployer -n {{ namespace }}
