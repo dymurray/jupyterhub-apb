@@ -24,3 +24,17 @@
     - tensorflow-notebook-buildconfig.json.j2
     - tensorflow-notebook-imagestream.json.j2
 
+- name: deploy Jupyterhub
+  openshift_raw:
+    state: present
+    definition: "{{ lookup('template', item)}}"
+  with_items:
+    - jupyterhub-deployer/serviceaccount.json.j2
+    - jupyterhub-deployer/rolebinding.json.j2
+    - jupyterhub-deployer/configmap.json.j2
+    - jupyterhub-deployer/jupyterhub-db-pv.json.j2
+    - jupyterhub-deployer/jupyterhub-db-dc.json.j2
+    - jupyterhub-deployer/jupyterhub-db-service.json.j2
+    - jupyterhub-deployer/jupyterhub-dc.json.j2
+    - jupyterhub-deployer/jupyterhub-service.json.j2
+    - jupyterhub-deployer/route.json.j2

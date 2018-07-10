@@ -10,4 +10,31 @@ plans:
     description: This default plan deploys jupyterhub-apb
     free: True
     metadata: {}
-    parameters: []
+    parameters:
+      - name: db_memory
+        type: enum
+        enum: ['512Mi']
+        default: '512Mi'
+        required: true
+      - name: db_password
+        type: string
+        required: true
+      - name: cookie_secret
+        type: string
+        required: true
+      - name: jupyterhub_memory
+        type: enum
+        enum: ['512Mi']
+        default: '512Mi'
+        required: true
+      - name: notebook_image
+        type: enum
+        enum: ['s2i-minimal-notebook:3.5']
+        required: true
+        default: 's2i-minimal-notebook:3.5'
+      - name: notebook_memory
+        type: enum
+        enum: ['512Mi']
+        default: '512Mi'
+        required: true
+

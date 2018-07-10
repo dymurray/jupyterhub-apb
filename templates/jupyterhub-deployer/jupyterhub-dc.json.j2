@@ -3,6 +3,7 @@
     "apiVersion": "v1",
     "metadata": {
         "name": "jupyterhub",
+        "namespace": "{{ namespace }}",
         "labels": {
             "app": "jupyterhub"
         }
@@ -99,7 +100,7 @@
                             },
                             {
                                 "name": "JUPYTERHUB_DATABASE_PASSWORD",
-                                "value": "{{ db_password }} }}"
+                                "value": "{{ db_password }}"
                             },
                             {
                                 "name": "JUPYTERHUB_DATABASE_HOST",
