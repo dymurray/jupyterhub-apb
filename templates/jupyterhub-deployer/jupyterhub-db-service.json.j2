@@ -1,0 +1,24 @@
+{
+    "kind": "Service",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "jupyterhub-db",
+        "labels": {
+            "app": "jupyterhub"
+        }
+    },
+    "spec": {
+        "ports": [
+            {
+                "name": "5432-tcp",
+                "protocol": "TCP",
+                "port": 5432,
+                "targetPort": 5432
+            }
+        ],
+        "selector": {
+            "app": "jupyterhub",
+            "deploymentconfig": "jupyterhub-db"
+        }
+    }
+}

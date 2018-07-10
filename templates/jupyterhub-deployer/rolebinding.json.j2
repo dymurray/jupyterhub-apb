@@ -1,0 +1,19 @@
+{
+    "kind": "RoleBinding",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "jupyterhub-edit",
+        "labels": {
+            "app": "jupyterhub"
+        }
+    },
+    "subjects": [
+        {
+            "kind": "ServiceAccount",
+            "name": "jupyterhub-hub"
+        }
+    ],
+    "roleRef": {
+        "name": "edit"
+    }
+}

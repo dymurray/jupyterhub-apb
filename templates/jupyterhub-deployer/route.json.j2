@@ -1,0 +1,25 @@
+{
+    "kind": "Route",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "jupyterhub",
+        "labels": {
+            "app": "jupyterhub"
+        }
+    },
+    "spec": {
+        "host": "",
+        "to": {
+            "kind": "Service",
+            "name": "jupyterhub",
+            "weight": 100
+        },
+        "port": {
+            "targetPort": "8080-tcp"
+        },
+        "tls": {
+            "termination": "edge",
+            "insecureEdgeTerminationPolicy": "Redirect"
+        }
+    }
+}
