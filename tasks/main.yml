@@ -1,23 +1,26 @@
 ---
 # tasks file for jupyterhub-apb
-#
-- name: copy files to /tmp
-  copy:
-    src: "{{ item }}"
-    dest: /tmp
-  with_items:
-    - "jupyterhub-templates.json"
-    - "notebook-images.json"
-    - "jupyter-images.json"
 
-- name: create buildconfigs, templates, and imagestreams
+- name: Create jupyterhub objects
   openshift_raw:
-    state: "{{ state }}"
-    definition: "{{ lookup('file', item.name) | from_json }}"
-  loop:
-    - name: /tmp/jupyterhub-templates.json
-    - name: /tmp/notebook-images.json
-    - name: /tmp/jupyter-images.json
+    state: present
+    definition: "{{ lookup('template', item) }}"
+  with_items:
+    - jupyterhub-buildconfig.json.j2
+    - jupyterhub-builder-template.json.j2
+    - jupyterhub-deployer-template.json.j2
+    - jupyterhub-imagestream.json.j2
+    - jupyterhub-quickstart-template.json.j2
 
-- name: Create jupyterhub deployment
-  shell: oc new-app --template jupyterhub-deployer -n {{ namespace }}
+- name: Create notebook objects
+  openshift_raw:
+    state: present
+    definition: "{{ lookup('template', item) }}"
+  with_items:
+    - minimal-notebook-buildconfig.json.j2
+    - minimal-notebook-imagestream.json.j2
+    - scipy-notebook-buildconfig.json.j2
+    - scipy-notebook-imagestream.json.j2
+    - tensorflow-notebook-buildconfig.json.j2
+    - tensorflow-notebook-imagestream.json.j2
+

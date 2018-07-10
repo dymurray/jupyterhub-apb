@@ -1,0 +1,43 @@
+{
+    "kind": "BuildConfig",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "jupyterhub",
+        "namespace": "{{ namespace }}",
+        "labels": {
+            "build": "jupyterhub"
+        }
+    },
+    "spec": {
+        "triggers": [
+            {
+                "type": "ConfigChange"
+            },
+            {
+                "type": "ImageChange"
+            }
+        ],
+        "source": {
+            "type": "Git",
+            "git": {
+                "uri": "https://github.com/jupyter-on-openshift/jupyterhub-quickstart.git"
+            }
+        },
+        "strategy": {
+            "type": "Source",
+            "sourceStrategy": {
+                "from": {
+                    "kind": "ImageStreamTag",
+                    "name": "python:3.5",
+                    "namespace": "openshift"
+                }
+            }
+        },
+        "output": {
+            "to": {
+                "kind": "ImageStreamTag",
+                "name": "jupyterhub:latest"
+            }
+        }
+    }
+}

@@ -1,0 +1,16 @@
+{
+    "kind": "ImageStream",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "s2i-minimal-notebook",
+        "namespace": "{{ namespace }}",
+        "labels": {
+            "build": "s2i-minimal-notebook"
+        }
+    },
+    "spec": {
+        "lookupPolicy": {
+            "local": true
+        }
+    }
+}

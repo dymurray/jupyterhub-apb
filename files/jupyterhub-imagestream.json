@@ -1,0 +1,16 @@
+{
+    "kind": "ImageStream",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "jupyterhub",
+        "namespace": "{{ namespace }}",
+        "labels": {
+            "build": "jupyterhub"
+        }
+    },
+    "spec": {
+        "lookupPolicy": {
+            "local": true
+        }
+    }
+}
