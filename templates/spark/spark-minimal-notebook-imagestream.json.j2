@@ -1,0 +1,15 @@
+{
+  "kind": "ImageStream",
+   "apiVersion": "v1",
+   "metadata": {
+       "name": "s2i-spark-minimal-notebook",
+       "labels": {
+           "build": "s2i-spark-minimal-notebook"
+       }
+   },
+   "spec": {
+       "lookupPolicy": {
+           "local": true
+       }
+   }
+}
